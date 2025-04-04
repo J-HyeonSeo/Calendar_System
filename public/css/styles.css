@@ -50,6 +50,17 @@ body {
 }
 
 /* 상세 일정 모달 */
+#back-drop {
+    display: none;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
 #close-schedule-btn {
     cursor: pointer;
     position: absolute;
@@ -58,7 +69,7 @@ body {
 }
 
 #type {
-    background-color: #1F63BA;
+    background-color: #15BF21;
     padding: 2px 12px;
     width: fit-content;
     height: fit-content;
@@ -68,6 +79,7 @@ body {
 }
 
 #detail-schedule {
+    display: none;
     z-index: 10;
     position: absolute;
     top: 50%;
