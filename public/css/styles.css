@@ -19,6 +19,14 @@ body {
     margin: 100px auto;
 }
 
+.fc-daygrid-day {
+    background-color: #fcfcfc;
+}
+
+.fc-daygrid-day-frame:hover {
+    background-color: #d3d3d3;
+}
+
 .fc-day-sat {
     color: blue;
     background-color: #f0f8ff !important; /* 연한 파란색 */
@@ -40,3 +48,93 @@ body {
 .fc-event {
     cursor: pointer;
 }
+
+/* 상세 일정 모달 */
+#close-schedule-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#type {
+    background-color: #1F63BA;
+    padding: 2px 12px;
+    width: fit-content;
+    height: fit-content;
+    font-size: 11px;
+    color: white;
+    border-radius: 10px;
+}
+
+#detail-schedule {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 320px;
+    height: fit-content;
+    background-color: #fcfcfc;
+    border-radius: 10px;
+    border: 1px solid #d5d5d5;
+}
+
+#detail-schedule h4 {
+    margin: 5px 0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#detail-schedule h6 {
+    margin: 5px 0;
+    font-size: 11px;
+}
+
+#detail-schedule h5 {
+    margin: 10px 0;
+    font-size: 12px;
+}
+
+#participant-view {
+    padding: 10px 5px;
+    width: 100%;
+    min-height: 35px;
+    height: fit-content;
+    background-color: #ededed;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.participant-card {
+    background-color: #d9d9d9;
+    padding: 2px 3px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    font-size: 12px;
+    margin: 2px 5px;
+}
+
+#detail-schedule-btn-wrap {
+    display: flex;
+    margin-top: 10px;
+}
+
+.btn {
+    height: fit-content;
+    width: fit-content;
+    padding: 5px 12px;
+    background-color: gray;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}
+
+.btn:hover {
+    filter: brightness(1.2);
+    cursor: pointer;
+}
+
