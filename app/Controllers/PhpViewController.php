@@ -35,6 +35,20 @@ class PhpViewController extends BaseController
         return view('pages/join');
     }
 
+    // 일정 등록 페이지 리턴
+    public function scheduleRegisterView() {
+        return view('templates/header').
+            view('pages/schedule-reg-form')
+            .view('templates/footer');
+    }
+
+    // 일정 수정 페이지 리턴
+    public function scheduleEditView() {
+        return view('templates/header').
+            view('pages/schedule-edit-form')
+            .view('templates/footer');
+    }
+
 
 
 }

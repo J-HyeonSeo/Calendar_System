@@ -17,8 +17,8 @@ $routes->get('/', 'PhpViewController::mainCalendarView');
 $routes->get('/login', 'PhpViewController::loginView');
 $routes->get('/join', 'PhpViewController::joinView');
 
-
-
+$routes->get('/schedule/register-view', 'PhpViewController::scheduleRegisterView');
+$routes->get('/schedule/edit-view', 'PhpViewController::scheduleEditView');
 
 
 /*
