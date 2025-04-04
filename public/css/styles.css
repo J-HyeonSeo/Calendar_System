@@ -13,6 +13,50 @@ body {
     padding: 0;
 }
 
+/* 상단 헤더 스타일 */
+header {
+    width: 1190px;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+}
+
+header a {
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+}
+
+header nav ol{
+    display: flex;
+}
+
+header nav ol li {
+    list-style: none;
+    margin: 0px 20px;
+}
+
+header nav ol li a {
+    font-size: 20px;
+}
+
+header nav ol li a:hover {
+    cursor: pointer;
+    color: #595959;
+}
+
+#profile {
+    position: absolute;
+    top: 40px;
+    right: 100px;
+}
+
+#profile h3 {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
 /* FullCalendar 스타일 */
 #calendar {
     width: 1190px;

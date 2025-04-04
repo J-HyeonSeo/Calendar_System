@@ -21,3 +21,17 @@
     <title>일정관리 시스템</title>
 </head>
 <body>
+    <header>
+        <a href="/">일정관리 시스템</a>
+        <nav>
+            <ol>
+                <li><a href="/schedule/register-view">일정 등록 하기</a></li>
+                <li><a href="/statistics/view">일정 통계 페이지</a></li>
+            </ol>
+        </nav>
+
+        <div id="profile">
+            <h3>Jerry님</h3>
+            <div class="btn" style="background-color: #F18800;">로그아웃</div>
+        </div>
+    </header>
