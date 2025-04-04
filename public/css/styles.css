@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+/* Noto Sans KR */
+
+/* 공통 스타일 */
+* {
+    font-family: "Noto Sans KR", serif;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* FullCalendar 스타일 */
+#calendar {
+    width: 1190px;
+    margin: 100px auto;
+}
+
+.fc-day-sat {
+    color: blue;
+    background-color: #f0f8ff !important; /* 연한 파란색 */
+}
+
+.fc-day-sun {
+    color: red;
+    background-color: #ffebeb !important; /* 연한 빨간색 */
+}
+
+.fc-toolbar-chunk > div {
+    display: flex;
+}
+
+.fc-toolbar-chunk > div h2 {
+    padding: 0 20px;
+}
+
+.fc-event {
+    cursor: pointer;
+}
