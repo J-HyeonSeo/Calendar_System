@@ -73,7 +73,7 @@ class MemberController extends BaseController
 
         // 세션에 데이터 할당하기.
         $this->session->set('member_id', $member['member_id']);
-        $this->session->set('username', $member['username']);
+        $this->session->set('nickname', $member['nickname']);
         $this->session->set('role_name', $role['role_name']);
 
         // 성공적인 응답 처리.

@@ -38,4 +38,5 @@ $routes->get('/statistics/view', 'PhpViewController::statisticsView');
  */
 $routes->post('/member/join', 'MemberController::join');
 $routes->post('/member/login', 'MemberController::login');
+$routes->post('/member/logout', 'MemberController::logout');
 $routes->post('/member', 'MemberController::getMemberList');

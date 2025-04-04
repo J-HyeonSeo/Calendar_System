@@ -1,3 +1,4 @@
+<?php $session = session(); ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,7 +33,25 @@
         </nav>
 
         <div id="profile">
-            <h3>Jerry님</h3>
-            <div class="btn" style="background-color: #F18800;">로그아웃</div>
+            <h3><?= esc($session->get('nickname'))?>님</h3>
+            <div class="btn" style="background-color: #F18800;" onclick="doLogout()">로그아웃</div>
         </div>
     </header>
+
+    <script>
+        // 로그아웃을 위한 스크립트.
+        function doLogout() {
+            $.ajax({
+                url: '/member/logout', // 로그인 API 경로
+                type: 'POST', // HTTP 메서드
+                success: function (response) {
+                    alert('로그아웃 하였습니다.');
+                    window.location.href = '/login';
+                },
+                error: function (xhr, status, error) {
+                    alert('서버에 문제가 발생하여, 로그아웃에 실패하였습니다.');
+                }
+            });
+        }
+
+    </script>
