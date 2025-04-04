@@ -3,12 +3,11 @@ FROM php:8.1-apache
 # Composer 설치하기
 COPY --from=composer:2.8.6 /usr/bin/composer /usr/bin/composer
 
-# 필요 패키지 설치 (MySQL 드라이버 & intl 확장)
+# 필수 패키지 설치
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev \
-    libonig-dev libzip-dev unzip curl \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mbstring zip pdo pdo_mysql intl
+    libicu-dev \
+    zip unzip git \
+    && docker-php-ext-install intl
 
 # Apache 설정하기
 RUN a2enmod rewrite
@@ -25,4 +24,4 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/writable
 
 # Apache 실행하기
-CMD ["apache2-foreground"]
+ENTRYPOINT ["apache2-foreground"]
