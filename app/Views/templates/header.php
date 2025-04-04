@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- 스타일 지정 -->
+    <link rel="stylesheet" href="/public/css/common.css">
     <link rel="stylesheet" href="/public/css/styles.css">
 
     <!-- 캘린더 라이브러리 설정 -->

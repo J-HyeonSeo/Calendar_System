@@ -1,18 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-/* Noto Sans KR */
-
-/* 공통 스타일 */
-* {
-    font-family: "Noto Sans KR", serif;
-    font-weight: 400;
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
-
 /* 상단 헤더 스타일 */
 header {
     width: 1190px;
@@ -178,19 +163,3 @@ header nav ol li a:hover {
     display: flex;
     margin-top: 10px;
 }
-
-.btn {
-    height: fit-content;
-    width: fit-content;
-    padding: 5px 12px;
-    background-color: gray;
-    border-radius: 5px;
-    color: white;
-    font-size: 12px;
-}
-
-.btn:hover {
-    filter: brightness(1.2);
-    cursor: pointer;
-}
-
