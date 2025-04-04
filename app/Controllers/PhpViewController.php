@@ -49,6 +49,15 @@ class PhpViewController extends BaseController
             .view('templates/footer');
     }
 
+    // 통계 조회 페이지 리턴
+    public function statisticsView() {
+
+        // TODO => 관리자가 아닌 경우, 리다이렉션
+
+        return view('templates/header').
+            view('pages/statistics')
+            .view('templates/footer');
+    }
 
 
 }

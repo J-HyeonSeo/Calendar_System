@@ -252,3 +252,56 @@ header nav ol li a:hover {
     cursor: pointer;
     color: #595959;
 }
+
+
+/* 일정 통계 데이터 조회 관련 스타일 */
+.statistics-area {
+    width: 1190px;
+    height: fit-content;
+    margin: 50px auto;
+}
+
+.search-form-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.statistics-title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.search-form {
+    display: flex;
+    width: 385px;
+    justify-content: space-evenly;
+    font-weight: bold;
+}
+
+input {
+    padding: 5px;
+    background-color: #d9d9d9;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.search-btn {
+    width: 25px;
+    height: 25px;
+}
+
+.search-btn:hover {
+    cursor: pointer;
+}
+
+/* 차트 스타일 */
+.chart-content {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #EDEDED;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    padding: 10px 0;
+}
+

@@ -20,6 +20,7 @@ $routes->get('/join', 'PhpViewController::joinView');
 $routes->get('/schedule/register-view', 'PhpViewController::scheduleRegisterView');
 $routes->get('/schedule/edit-view', 'PhpViewController::scheduleEditView');
 
+$routes->get('/statistics/view', 'PhpViewController::statisticsView');
 
 /*
     #####################################################################
