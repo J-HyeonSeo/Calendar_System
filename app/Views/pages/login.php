@@ -6,6 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>일정관리 시스템 로그인</title>
+
+    <!-- 빠른 개발을 위한 JQuery 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/public/css/common.css">
     <link rel="stylesheet" href="/public/css/login.css">
 </head>
@@ -34,7 +38,25 @@
 
     <script>
         function doLogin() {
-            alert("TODO 로그인 연계")
+            const username = $('#username').val();
+            const password = $('#password').val();
+
+            $.ajax({
+                url: '/member/login', // 로그인 API 경로
+                type: 'POST', // HTTP 메서드
+                data: JSON.stringify({
+                    username: username,
+                    password: password
+                }),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('로그인에 성공하였습니다.');
+                    window.location.href = '/';
+                },
+                error: function (xhr, status, error) {
+                    alert('잘못된 아이디 또는 비밀번호 입니다.');
+                }
+            });
         }
     </script>
 </body>

@@ -6,6 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>일정관리 시스템 회원가입</title>
+
+    <!-- 빠른 개발을 위한 JQuery 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/public/css/common.css">
     <link rel="stylesheet" href="/public/css/join.css">
 </head>
@@ -36,7 +40,27 @@
 
 <script>
     function doJoin() {
-        alert("TODO 회원가입 연계")
+        const username = $('#username').val();
+        const password = $('#password').val();
+        const nickname = $('#nickname').val();
+
+        $.ajax({
+            url: '/member/join', // 로그인 API 경로
+            type: 'POST', // HTTP 메서드
+            data: JSON.stringify({
+                username: username,
+                password: password,
+                nickname: nickname,
+            }),
+            contentType: 'application/json',
+            success: function (response) {
+                alert('회원가입에 성공하였습니다.');
+                window.location.href = '/login';
+            },
+            error: function (xhr, status, error) {
+                alert('서버에 오류가 발생하였습니다.');
+            }
+        });
     }
 </script>
 </body>
