@@ -60,7 +60,9 @@ class StatisticsController extends BaseController
 
         $data = $pQuery->execute($startDate, $endDate)->getResult();
 
-        return $this->response->setJSON($data);
+        return $this->response->setJSON([
+            'chartList' => $data
+        ]);
     }
 
     // 월별 통계
@@ -110,7 +112,9 @@ class StatisticsController extends BaseController
 
         $data = $pQuery->execute($startDate, $endDate)->getResult();
 
-        return $this->response->setJSON($data);
+        return $this->response->setJSON([
+            'chartList' => $data
+        ]);
     }
 
     //
@@ -164,7 +168,9 @@ class StatisticsController extends BaseController
 
         $data = $pQuery->execute($startDate, $endDate)->getResult();
 
-        return $this->response->setJSON($data);
+        return $this->response->setJSON([
+            'chartList' => $data
+        ]);
     }
 
     public function getStatisticsPlace() {
@@ -214,7 +220,9 @@ class StatisticsController extends BaseController
 
         $data = $pQuery->execute($startDate, $endDate)->getResult();
 
-        return $this->response->setJSON($data);
+        return $this->response->setJSON([
+            'chartList' => $data
+        ]);
     }
 
     public function getStatisticsType() {
@@ -264,7 +272,9 @@ class StatisticsController extends BaseController
 
         $data = $pQuery->execute($startDate, $endDate)->getResult();
 
-        return $this->response->setJSON($data);
+        return $this->response->setJSON([
+            'chartList' => $data
+        ]);
     }
 
 }
