@@ -44,7 +44,7 @@ class StatisticsController extends BaseController
                         ELSE 1440
                     END AS minutes
                 FROM DATE_RANGE D
-                LEFT JOIN SCHEDULE S
+                LEFT JOIN schedule S
                     ON D.dt BETWEEN DATE(S.start_dt) AND DATE(S.end_dt)
             )
             SELECT
@@ -96,7 +96,7 @@ class StatisticsController extends BaseController
                         ELSE 1440
                     END AS minutes
                 FROM DATE_RANGE D
-                LEFT JOIN SCHEDULE S
+                LEFT JOIN schedule S
                     ON D.dt BETWEEN DATE(S.start_dt) AND DATE(S.end_dt)
             )
             SELECT
@@ -149,7 +149,7 @@ class StatisticsController extends BaseController
                         ELSE 1440
                     END AS minutes
                 FROM DATE_RANGE D
-                JOIN SCHEDULE S
+                JOIN schedule S
                     ON D.dt BETWEEN DATE(S.start_dt) AND DATE(S.end_dt)
                 LEFT JOIN PARTICIPANT P
                     ON P.schedule_id = S.schedule_id
@@ -204,7 +204,7 @@ class StatisticsController extends BaseController
                         ELSE 1440
                     END AS minutes
                 FROM DATE_RANGE D
-                JOIN SCHEDULE S
+                JOIN schedule S
                     ON D.dt BETWEEN DATE(S.start_dt) AND DATE(S.end_dt)
             )
             SELECT
@@ -256,7 +256,7 @@ class StatisticsController extends BaseController
                         ELSE 1440
                     END AS minutes
                 FROM DATE_RANGE D
-                JOIN SCHEDULE S
+                JOIN schedule S
                     ON D.dt BETWEEN DATE(S.start_dt) AND DATE(S.end_dt)
             )
             SELECT
