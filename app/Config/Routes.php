@@ -39,6 +39,7 @@ $routes->get('/statistics/view', 'PhpViewController::statisticsView');
 
 // 일정 관리 API
 $routes->post('/schedule', 'ScheduleController::addSchedule');
+$routes->get('/schedule', 'ScheduleController::getScheduleList');
 
 // 회원 API
 $routes->post('/member/join', 'MemberController::join');
