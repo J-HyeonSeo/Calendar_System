@@ -151,7 +151,7 @@ class StatisticsController extends BaseController
                 FROM DATE_RANGE D
                 JOIN schedule S
                     ON D.dt BETWEEN DATE(S.start_dt) AND DATE(S.end_dt)
-                LEFT JOIN PARTICIPANT P
+                LEFT JOIN participant P
                     ON P.schedule_id = S.schedule_id
             )
             SELECT
