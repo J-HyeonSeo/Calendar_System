@@ -7,7 +7,8 @@ COPY --from=composer:2.8.6 /usr/bin/composer /usr/bin/composer
 RUN apt-get update && apt-get install -y \
     libicu-dev \
     zip unzip git \
-    && docker-php-ext-install intl
+    && docker-php-ext-install intl mysqli \
+    && docker-php-ext-enable intl mysqli
 
 # Apache 설정하기
 RUN a2enmod rewrite
