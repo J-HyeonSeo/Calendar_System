@@ -100,7 +100,7 @@ class PhpViewController extends BaseController
     // 일정 데이터 단건 조회.
     private function getSchedule($scheduleId) {
 
-        $memberId = $this->session->get('memberId');
+        $memberId = $this->session->get('member_id');
         $role = $this->session->get('role_name');
 
         if ($role == 'ADMIN') {
