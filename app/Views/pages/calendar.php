@@ -28,9 +28,10 @@
     /*
         FullCalendar 라이브러리 로드.
      */
+    var calendar;
     document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+        const calendarEl = document.getElementById('calendar');
+        calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             aspectRatio: 1,
             height: '800px',
@@ -44,82 +45,18 @@
                 today: '오늘'
             },
             events: [
-                {
-                    type: '회식',
-                    title: '1차 회식',
-                    start: '2025-04-04T12:00:00',
-                    place: '닭갈비집',
-                    end: '2025-04-05T12:00:00',
-                    participantList: [
-                        {
-                            memberId: 1,
-                            nickname: 'Jerry'
-                        },
-                        {
-                            memberId: 2,
-                            nickname: 'Tom'
-                        },
-                    ]
-                },
-                {
-                    type: '교육',
-                    title: '2차 회식',
-                    place: '닭갈비집2',
-                    start: '2025-04-04T12:00:00',
-                    end: '2025-04-04T13:00:00',
-                    participantList: [
-                        {
-                            memberId: 1,
-                            nickname: 'Sarah'
-                        },
-                        {
-                            memberId: 2,
-                            nickname: 'Chris'
-                        },
-                    ]
-                },
-                {
-                    type: '일반',
-                    title: '3차 회식',
-                    place: '닭갈비집3',
-                    start: '2025-04-04T12:00:00',
-                    end: '2025-04-04T13:00:00',
-                    participantList: [
-                        {
-                            memberId: 1,
-                            nickname: 'Jerry'
-                        },
-                        {
-                            memberId: 2,
-                            nickname: 'Jason'
-                        },
-                    ]
-                },
-                {
-                    type: '세미나',
-                    title: '3차 회식',
-                    place: '닭갈비집3',
-                    start: '2025-04-04T12:00:00',
-                    end: '2025-04-04T13:00:00',
-                    participantList: [
-                        {
-                            memberId: 1,
-                            nickname: 'Jerry'
-                        },
-                        {
-                            memberId: 2,
-                            nickname: 'Patrick'
-                        },
-                    ]
-                },
             ],
             eventClick: function(info) {
                 openDetailScheduleModal(info);
             },
             dateClick: function(date) {
                 confirm(`${date.dateStr} 날짜에 일정을 등록하시겠습니까?`);
+            },
+            datesSet: function(info) {
+                settingCalendarEvents();
             }
         });
+
         calendar.render();
     });
 
@@ -131,11 +68,19 @@
         #####################################################################
      */
 
+    const typeLabelMap = {
+        GENERAL: '일반',
+        EDUCATION: '교육',
+        SEMINAR: '세미나',
+        STAFFPARTY: '회식'
+        // 필요한 타입들을 계속 추가 가능
+    };
+
     // 상세 일정 모달을 오픈한다.
     function openDetailScheduleModal(info) {
         $('#back-drop').show();
         $('#detail-schedule').show();
-        $('#type').text(info.event.extendedProps.type);
+        $('#type').text(typeLabelMap[info.event.extendedProps.type]);
         $('#title').text(info.event.title);
         $('#place').text('장소: ' + info.event.extendedProps.place);
         $('#startDt').text(formatEventDate(info.event.start) + ' ~');
@@ -159,6 +104,58 @@
         return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
     }
 
+    function getCalendarYearMonth() {
+        const currentDate = calendar.getDate(); // 중심 날짜
+
+        const nowYear = currentDate.getFullYear();
+        const nowMonth = currentDate.getMonth(); // 0~11
+
+        const prevDate = new Date(nowYear, nowMonth - 1, 1); // 이전 달
+        const nextDate = new Date(nowYear, nowMonth + 1, 1); // 다음 달
+
+        const formatYM = (date) => {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            return `${y}-${m}`;
+        };
+
+        return {
+            prevYearMonth: formatYM(prevDate),
+            nowYearMonth: formatYM(currentDate),
+            nextYearMonth: formatYM(nextDate),
+        };
+    }
+
+    function settingCalendarEvents() {
+        const yearMonthSet = getCalendarYearMonth();
+
+        const startYearMonth = yearMonthSet.prevYearMonth;
+        const endYearMonth = yearMonthSet.nextYearMonth;
+
+        calendar.getEvents().forEach(event => event.remove());
+
+        $.ajax({
+            url: `/schedule?startYearMonth=${startYearMonth}&endYearMonth=${endYearMonth}`, // 로그인 API 경로
+            type: 'GET', // HTTP 메서드
+            contentType: 'application/json',
+            success: function (response) {
+                scheduleEventList = response.scheduleList.map(
+                    item => ({
+                        ...item,
+                        start: item.startDt,
+                        end: item.endDt
+                    })
+                );
+
+                calendar.addEventSource(scheduleEventList);
+
+            },
+            error: function () {
+                console.error('일정을 조회할 수 없습니다.');
+            }
+        });
+
+    }
 
 
     /*
