@@ -26,3 +26,7 @@ services:
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
+
+networks:
+  project-networks:
+    driver: bridge
