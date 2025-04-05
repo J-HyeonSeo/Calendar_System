@@ -60,16 +60,20 @@ CREATE TABLE `member_to_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- role
-INSERT INTO `role` (`role_name`) VALUES ('ADMIN');
-INSERT INTO `role` (`role_name`) VALUES ('USER');
+INSERT INTO `role` (`role_id`, `role_name`) VALUES
+     (1, 'ADMIN'),
+     (2, 'USER');
 
--- member
-INSERT INTO `member` (`username`, `password`, `nickname`) VALUES ('admin', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Admin');
-INSERT INTO `member` (`username`, `password`, `nickname`) VALUES ('jerry', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jerry');
-INSERT INTO `member` (`username`, `password`, `nickname`) VALUES ('jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason');
+-- 초기 데이터 삽입
+INSERT INTO `member` (`member_id`, `username`, `password`, `nickname`) VALUES
+    (1, 'admin', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Admin'),
+    (2, 'jerry', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jerry'),
+    (3, 'jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason');
 
--- member_to_role
-INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES (1, 1);
-INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES (2, 2);
-INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES (3, 2);
+INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES
+      (1, 1),
+      (2, 2),
+      (3, 2);
+
+ALTER TABLE `member` AUTO_INCREMENT = 4;
+ALTER TABLE `role` AUTO_INCREMENT = 3;
