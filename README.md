@@ -10,8 +10,23 @@
 
 # 설치 및 실행방법
 
+- 프로젝트를 Clone합니다.
+```shell
+git clone https://github.com/J-HyeonSeo/Calendar_System.git
+```
+- Clone한 git프로젝트에 진입합니다.
+```shell
+cd Calendar_System
+```
+
+- Docker Image를 빌드하고, MySQL과 같이 Container를 Compose하여 배포합니다.
 ```shell
 sh projectStart.sh
+```
+
+- 배포된 Local환경의 주소로 접근합니다.
+```
+http://localhost:7777
 ```
 
 # 사용법 메뉴얼 (공통)
