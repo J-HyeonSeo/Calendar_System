@@ -17,6 +17,16 @@ class MemberController extends BaseController
     // 회원가입
     public function join()
     {
+        // 밸리데이션 처리.
+        $joinValidation = [
+            'username' => 'required|min_length[1]|max_length[20]',
+            'password' => 'required|min_length[8]|max_length[20]',
+            'nickname' => 'required|min_length[1]|max_length[10]',
+        ];
+        if (!$this->validate($joinValidation, $this->request->getJSON(true))) {
+            return $this->response->setStatusCode(400);
+        }
+
         $username = $this->request->getJSON(true)['username'];
         $password = $this->request->getJSON(true)['password'];
         $nickname = $this->request->getJSON(true)['nickname'];
