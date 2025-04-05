@@ -8,6 +8,8 @@ services:
       - "7777:80"
     networks:
       - calendar-network
+    environment:
+      - TZ=Asia/Seoul
     restart: always
     depends_on:
       - mysql
@@ -15,11 +17,14 @@ services:
   mysql:
     image: mysql:8.0.34
     container_name: mysql
+    ports:
+      - "3307:3306"
     networks:
       - calendar-network
     environment:
       - MYSQL_DATABASE=calendar
       - MYSQL_ROOT_PASSWORD=12341234
+      - TZ=Asia/Seoul
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
