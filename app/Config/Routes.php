@@ -49,3 +49,10 @@ $routes->post('/member/join', 'MemberController::join');
 $routes->post('/member/login', 'MemberController::login');
 $routes->post('/member/logout', 'MemberController::logout');
 $routes->get('/member', 'MemberController::getMemberList');
+
+// 일정 통계 API
+$routes->get('/statistics/day', 'StatisticsController::getStatisticsDay');
+$routes->get('/statistics/month', 'StatisticsController::getStatisticsMonth');
+$routes->get('/statistics/participant', 'StatisticsController::getStatisticsParticipant');
+$routes->get('/statistics/place', 'StatisticsController::getStatisticsPlace');
+$routes->get('/statistics/type', 'StatisticsController::getStatisticsType');

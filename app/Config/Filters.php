@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
 use App\Filters\AuthFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
@@ -36,6 +37,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'auth'          => AuthFilter::class,
+        'admin'         => AdminFilter::class,
     ];
 
     /**
@@ -112,6 +114,9 @@ class Filters extends BaseFilters
             'member',
             'statistics/*',
             ''
+        ]],
+        'admin' => ['before' => [
+            'statistics/*',
         ]],
     ];
 }
