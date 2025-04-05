@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  calendar-system:
+    image: calendar
+    container_name: calendar
+    ports:
+      - "7777:80"
+    networks:
+      - calendar-network
+    restart: always
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0.34
+    container_name: mysql
+    networks:
+      - calendar-network
+    environment:
+      - MYSQL_DATABASE=calendar
+      - MYSQL_ROOT_PASSWORD=12341234
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
