@@ -39,10 +39,38 @@
 </div>
 
 <script>
+
     function doJoin() {
         const username = $('#username').val();
         const password = $('#password').val();
         const nickname = $('#nickname').val();
+
+        if (username === undefined ||
+            username === null ||
+            username.trim().length < 1 ||
+            username.trim().length > 20
+        ) {
+            alert('사용자명은 1 ~ 20자로 입력해주세요.');
+            return;
+        }
+
+        if (password === undefined ||
+            password === null ||
+            password.trim().length < 8 ||
+            password.trim().length > 20
+        ) {
+            alert('비밀번호는 8 ~ 20자로 입력해주세요.');
+            return;
+        }
+
+        if (nickname === undefined ||
+            nickname === null ||
+            nickname.trim().length < 1 ||
+            nickname.trim().length > 10
+        ) {
+            alert('닉네임은 1 ~ 10자로 입력해주세요.');
+            return;
+        }
 
         $.ajax({
             url: '/member/join', // 로그인 API 경로
