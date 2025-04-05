@@ -24,6 +24,12 @@ class MemberController extends BaseController
         // 비밀번호 단방향(해시) 암호화 처리.
         $hashPassword = password_hash($password, PASSWORD_BCRYPT);
 
+        // 기존에 가입된 username이 있는지 조회.
+        $member = $this->memberModel->findByUsername($username);
+        if ($member) {
+            return $this->response->setStatusCode(400);
+        }
+
         // 트랜잭션 시작
         $this->memberModel->db->transStart();
 
