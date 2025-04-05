@@ -196,9 +196,13 @@
         $.ajax({
             url: `/schedule/${scheduleId}`, // 로그인 API 경로
             type: 'DELETE', // HTTP 메서드
+            headers: {
+                "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+            },
             success: function (response) {
                 // 일정 다시 할당하기.
                 settingCalendarEvents();
+                closeDetailScheduleModal();
             },
             error: function () {
                 console.error('일정 삭제에 실패하였습니다.');

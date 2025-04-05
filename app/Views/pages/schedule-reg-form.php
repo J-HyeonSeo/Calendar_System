@@ -223,6 +223,9 @@
         $.ajax({
             url: '/schedule', // 로그인 API 경로
             type: 'POST', // HTTP 메서드
+            headers: {
+                "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+            },
             data: JSON.stringify(requestBody),
             contentType: 'application/json',
             success: function () {

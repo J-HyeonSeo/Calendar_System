@@ -232,6 +232,9 @@
         $.ajax({
             url: `/schedule/<?= esc($schedule['scheduleId']) ?>`,
             type: 'PUT', // HTTP 메서드
+            headers: {
+                "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+            },
             data: JSON.stringify(requestBody),
             contentType: 'application/json',
             success: function () {

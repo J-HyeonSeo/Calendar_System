@@ -46,6 +46,9 @@
             $.ajax({
                 url: '/member/logout', // 로그인 API 경로
                 type: 'POST', // HTTP 메서드
+                headers: {
+                    "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+                },
                 success: function (response) {
                     alert('로그아웃 하였습니다.');
                     window.location.href = '/login';

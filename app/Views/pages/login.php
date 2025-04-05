@@ -44,16 +44,19 @@
             $.ajax({
                 url: '/member/login', // 로그인 API 경로
                 type: 'POST', // HTTP 메서드
+                headers: {
+                    "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+                },
                 data: JSON.stringify({
                     username: username,
                     password: password
                 }),
                 contentType: 'application/json',
-                success: function (response) {
+                success: function () {
                     alert('로그인에 성공하였습니다.');
                     window.location.href = '/';
                 },
-                error: function (xhr, status, error) {
+                error: function () {
                     alert('잘못된 아이디 또는 비밀번호 입니다.');
                 }
             });
