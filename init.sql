@@ -64,7 +64,7 @@ CREATE TABLE `member_to_role` (
 INSERT INTO `member` (`username`, `password`, `nickname`) VALUES
     ('admin', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Admin'),
     ('jerry', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jerry'),
-    ('jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason'),
+    ('jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason');
 
 INSERT INTO `role` (`role_name`) VALUES
      ('ADMIN'),
