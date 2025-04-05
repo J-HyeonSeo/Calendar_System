@@ -17,6 +17,19 @@ class ScheduleController extends BaseController
     // 일정 등록
     public function addSchedule() {
 
+        // 밸리데이션
+        $scheduleValidation = [
+            'type' => 'required|in_list[GENERAL,EDUCATION,SEMINAR,STAFFPARTY]',
+            'title' => 'required|min_length[1]|max_length[30]',
+            'place' => 'required|min_length[1]|max_length[20]',
+            'startDt' => 'required|date',
+            'endDt' => 'required|date',
+            'participantList' => 'required',
+        ];
+        if (!$this->validate($scheduleValidation, $this->request->getJSON(true))) {
+            return $this->response->setStatusCode(400);
+        }
+
         $memberId = $this->session->get('member_id');
 
         $input = $this->request->getJSON(true);
@@ -27,6 +40,16 @@ class ScheduleController extends BaseController
         $startDt = $input['startDt'];
         $endDt = $input['endDt'];
         $participantList = $input['participantList'];
+
+        // 논리적인 밸리데이션
+        if (count($participantList) < 1) {
+            return $this->response->setStatusCode(400);
+        }
+        if (strtotime($startDt) >= strtotime($endDt)) {
+            return $this->response->setStatusCode(400);
+        }
+
+        // 하단 부터 등록 로직 수행.
 
         $this->scheduleModel->db->transStart();
 
@@ -54,6 +77,19 @@ class ScheduleController extends BaseController
     // 일정 수정
     public function updateSchedule($scheduleId) {
 
+        // 밸리데이션
+        $scheduleValidation = [
+            'type' => 'required|in_list[GENERAL,EDUCATION,SEMINAR,STAFFPARTY]',
+            'title' => 'required|min_length[1]|max_length[30]',
+            'place' => 'required|min_length[1]|max_length[20]',
+            'startDt' => 'required|date',
+            'endDt' => 'required|date',
+            'participantList' => 'required',
+        ];
+        if (!$this->validate($scheduleValidation, $this->request->getJSON(true))) {
+            return $this->response->setStatusCode(400);
+        }
+
         $role = $this->session->get('role_name');
         $memberId = $this->session->get('member_id');
 
@@ -65,6 +101,14 @@ class ScheduleController extends BaseController
         $startDt = $input['startDt'];
         $endDt = $input['endDt'];
         $participantList = $input['participantList'];
+
+        // 논리적인 밸리데이션
+        if (count($participantList) < 1) {
+            return $this->response->setStatusCode(400);
+        }
+        if (strtotime($startDt) >= strtotime($endDt)) {
+            return $this->response->setStatusCode(400);
+        }
 
         $schedule = $this->scheduleModel->find($scheduleId);
 
