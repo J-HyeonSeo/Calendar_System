@@ -17,9 +17,9 @@
             </div>
         </div>
         <div id="detail-schedule-btn-wrap">
-            <div class="btn" style="background-color: #F18800">수정</div>
-            <div class="btn" style="background-color: #B02A2A; margin: 0 10px;">삭제</div>
-            <div class="btn" style="background-color: #1F63BA;">복사</div>
+            <div class="btn" id="detail-edit-schedule-btn" style="background-color: #F18800">수정</div>
+            <div class="btn" id="detail-remove-schedule-btn" style="background-color: #B02A2A; margin: 0 10px;">삭제</div>
+            <div class="btn" id="detail-copy-schedule-btn" style="background-color: #1F63BA;">복사</div>
         </div>
     </aside>
 </main>
@@ -93,17 +93,33 @@
             const $card = $('<div>').addClass('participant-card').text(participant.nickname);
             $('#participant-view').append($card);
         }
+        
+        // 등록버튼에 이벤트 걸기
+        
+        // 수정버튼에 이벤트 걸기
+        $('#detail-edit-schedule-btn')
+            .off()
+            .on('click', () => window.location.href=`/schedule/edit-view/${info.event.extendedProps.scheduleId}`);
+        
+        // 삭제버튼에 이벤트 걸기
+        $('#detail-remove-schedule-btn')
+            .off()
+            .on('click', () => removeSchedule(info.event.extendedProps.scheduleId));
+
     }
 
+    // 상세 일정 모달 닫기 함수.
     function closeDetailScheduleModal() {
         $('#back-drop').hide();
         $('#detail-schedule').hide();
     }
 
+    // 이벤트 형식에 맞게 날짜를 포맷팅
     function formatEventDate(date) {
         return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
     }
 
+    // 현재 FullCalendar의 View되고 있는 연월(yyyy-MM) 데이터 구하기.
     function getCalendarYearMonth() {
         const currentDate = calendar.getDate(); // 중심 날짜
 
@@ -126,6 +142,7 @@
         };
     }
 
+    // FullCalendar에 일정을 새롭게 셋팅하는 함수.
     function settingCalendarEvents() {
         const yearMonthSet = getCalendarYearMonth();
 
@@ -155,6 +172,26 @@
             }
         });
 
+    }
+
+    // scheduleId를 통해 스케줄을 삭제한다.
+    function removeSchedule(scheduleId) {
+
+        const answer = confirm("일정을 삭제하시겠습니까?");
+
+        if (!answer) return;
+
+        $.ajax({
+            url: `/schedule/${scheduleId}`, // 로그인 API 경로
+            type: 'DELETE', // HTTP 메서드
+            success: function (response) {
+                // 일정 다시 할당하기.
+                settingCalendarEvents();
+            },
+            error: function () {
+                console.error('일정 삭제에 실패하였습니다.');
+            }
+        });
     }
 
 

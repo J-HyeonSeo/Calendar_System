@@ -52,13 +52,83 @@ class ScheduleController extends BaseController
     }
 
     // 일정 수정
-    public function updateSchedule() {
+    public function updateSchedule($scheduleId) {
 
+        $role = $this->session->get('role_name');
+        $memberId = $this->session->get('member_id');
+
+        $input = $this->request->getJSON(true);
+
+        $type = $input['type'];
+        $title = $input['title'];
+        $place = $input['place'];
+        $startDt = $input['startDt'];
+        $endDt = $input['endDt'];
+        $participantList = $input['participantList'];
+
+        $schedule = $this->scheduleModel->find($scheduleId);
+
+        // 없으면, 400에러.
+        if (!$schedule) {
+            return $this->response->setStatusCode(400);
+        }
+
+        // 일반 사용자인 경우에는, 권한 체크.
+        if ($role == 'USER' && $schedule['member_id'] != $memberId) {
+            return $this->response->setStatusCode(400);
+        }
+
+        // 스케줄 내용 수정. ========================================================
+        $this->scheduleModel->db->transStart();
+        $this->scheduleModel->update($scheduleId, [
+            'type' => $type,
+            'title' => $title,
+            'place' => $place,
+            'start_dt' => $startDt,
+            'end_dt' => $endDt,
+        ]);
+
+        // 참가자 조회 하기.
+        $prevParticipantList = $this->participantModel->where('schedule_id', $scheduleId)->findAll();
+
+        // 참가자 제거 하기.
+        foreach ($prevParticipantList as $prevParticipant) {
+            $this->participantModel->delete($prevParticipant['participant_id']);
+        }
+
+        // 참가자 다시 추가.
+        foreach ($participantList as $participant) {
+            $this->participantModel->insert([
+                'member_id' => $participant['memberId'],
+                'schedule_id' => $scheduleId
+            ]);
+        }
+        $this->scheduleModel->db->transComplete();
+        // 끝 ======================================================================
+
+        return $this->response->setStatusCode(200);
     }
 
     // 일정 삭제
-    public function removeSchedule() {
+    public function removeSchedule($scheduleId) {
 
+        $memberId = $this->session->get('member_id');
+        $roleName = $this->session->get('role_name');
+
+        $schedule = $this->scheduleModel->find($scheduleId);
+
+        if (!$schedule) {
+            return $this->response->setStatusCode(400);
+        }
+
+        if ($roleName == 'USER' && $schedule['member_id'] != $memberId) {
+            return $this->response->setStatusCode(400);
+        }
+
+        // 참가자는 DB CASCADE로 처리함.
+        $this->scheduleModel->delete($scheduleId);
+
+        return $this->response->setStatusCode(200);
     }
 
     // 일정 조회 (사용자 -> 본인 것만, 관리자 -> 전부)
