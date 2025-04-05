@@ -53,12 +53,13 @@
     /*
         #####################################################################
         #############                                         ###############
-        #############                데이터 구성                ###############
+        #############                데이터 관리                ###############
         #############                                         ###############
         #####################################################################
     */
     const selectedMemberList = [];
 
+    // 참가자 목록 조회하기.
     $.ajax({
         url: '/member', // 로그인 API 경로
         type: 'GET', // HTTP 메서드
@@ -74,6 +75,71 @@
             alert('참가자 정보를 가져오지 못했습니다.');
         }
     });
+
+
+    // 입력한 데이터가 맞는지 검증하는 함수.
+    function validate(requestBody) {
+
+        // 종류 검증
+        if (!['GENERAL', 'EDUCATION', 'SEMINAR', 'STAFFPARTY'].includes(requestBody.type)) {
+            alert("종류가 올바르지 않습니다.");
+            return false;
+        }
+
+        // 제목은 1 ~ 30
+        if (requestBody.title === undefined ||
+            requestBody.title === null ||
+            requestBody.title.trim() === '' ||
+            requestBody.title.trim().length < 1 ||
+            requestBody.title.trim().length > 30
+        ) {
+            alert("제목은 1 ~ 30 자로 입력해주세요.");
+            return false;
+        }
+
+        // 장소는 1 ~ 20
+        if (requestBody.place === undefined ||
+            requestBody.place === null ||
+            requestBody.place.trim() === '' ||
+            requestBody.place.trim().length < 1 ||
+            requestBody.place.trim().length > 20
+        ) {
+            alert("장소는 1 ~ 20 자로 입력해주세요.");
+            return false;
+        }
+
+        // 시작 시간은 반드시 입력
+        if (requestBody.startDt === undefined ||
+            requestBody.startDt === null ||
+            requestBody.startDt === ''
+        ) {
+            alert("시작 시간을 지정해주세요.");
+            return false;
+        }
+
+        // 종료 시간은 반드시 입력
+        if (requestBody.endDt === undefined ||
+            requestBody.endDt === null ||
+            requestBody.endDt === ''
+        ) {
+            alert("종료 시간을 지정해주세요.");
+            return false;
+        }
+
+        // 시작 시간 < 종료 시간
+        if (new Date(requestBody.startDt) >= new Date(requestBody.endDt)) {
+            alert("시작 시간이 종료 시간와 동일하거나 넘어설 수 없습니다.");
+            return false;
+        }
+
+        if (requestBody.participantList.length < 1) {
+            alert("참가자는 적어도 1명은 존재해야 합니다.");
+            return false;
+        }
+
+        return true;
+
+    }
 
 
     /*
@@ -95,6 +161,7 @@
     }
 
     function addParticipantBtn(e) {
+
         // 이벤트로 발생한 데이터와, value를 가져오고, 이를 새롭게 넣어주어야 함.
         // 단 이미 존재하는 데이터는 삽입 금지.
 
@@ -130,6 +197,7 @@
     }
 
     function addSchedule() {
+
         const type = $('#type-input').val();
         const title = $('#title-input').val();
         const place = $('#place-input').val();
@@ -145,6 +213,11 @@
             endDt: endDt,
             participantList
         };
+
+        // 밸리데이션 처리.
+        if (!validate(requestBody)) {
+            return;
+        }
 
         // 스케줄 등록
         $.ajax({
