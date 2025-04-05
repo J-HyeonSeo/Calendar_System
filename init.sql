@@ -60,15 +60,16 @@ CREATE TABLE `member_to_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+
+INSERT INTO `role` (`role_name`) VALUES
+     ('ADMIN'),
+     ('USER');
+
 -- 초기 데이터 삽입
 INSERT INTO `member` (`username`, `password`, `nickname`) VALUES
     ('admin', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Admin'),
     ('jerry', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jerry'),
     ('jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason');
-
-INSERT INTO `role` (`role_name`) VALUES
-     ('ADMIN'),
-     ('USER');
 
 INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES
       (1, 1),
