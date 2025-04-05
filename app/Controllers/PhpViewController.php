@@ -41,6 +41,24 @@ class PhpViewController extends BaseController
             .view('templates/footer');
     }
 
+    // 일정 등록 페이지 리턴 (복사 데이터 적용)
+    public function scheduleCopyView($scheduleId) {
+
+        $schedule = $this->getSchedule($scheduleId);
+
+        if (!$schedule) {
+            return $this->response->setStatusCode(400);
+        }
+
+        $data = [
+            'schedule' => $this->getSchedule($scheduleId)[0]
+        ];
+
+        return view('templates/header', $data).
+            view('pages/schedule-copy-form')
+            .view('templates/footer');
+    }
+
     // 일정 수정 페이지 리턴
     public function scheduleEditView($scheduleId) {
 

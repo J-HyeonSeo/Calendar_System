@@ -104,6 +104,9 @@
         }
         
         // 등록버튼에 이벤트 걸기
+        $('#detail-copy-schedule-btn')
+            .off()
+            .on('click', () => window.location.href=`/schedule/register-view/${info.event.extendedProps.scheduleId}`);
         
         // 수정버튼에 이벤트 걸기
         $('#detail-edit-schedule-btn')

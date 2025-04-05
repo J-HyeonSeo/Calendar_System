@@ -24,6 +24,7 @@ $routes->get('/join', 'PhpViewController::joinView');
 
 // 일정 등록/수정 페이지
 $routes->get('/schedule/register-view', 'PhpViewController::scheduleRegisterView');
+$routes->get('/schedule/register-view/(:segment)', 'PhpViewController::scheduleCopyView/$1');
 $routes->get('/schedule/edit-view/(:segment)', 'PhpViewController::scheduleEditView/$1');
 
 // 통계 조회 페이지
