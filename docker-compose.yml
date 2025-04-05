@@ -12,7 +12,7 @@ services:
       - TZ=Asia/Seoul
     restart: always
     depends_on:
-      - mysql
+      - calendar-db
 
   calendar-db:
     image: mysql:8.0.34
