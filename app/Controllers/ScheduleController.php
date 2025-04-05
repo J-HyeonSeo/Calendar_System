@@ -64,15 +64,18 @@ class ScheduleController extends BaseController
     // 일정 조회 (사용자 -> 본인 것만, 관리자 -> 전부)
     public function getScheduleList() {
 
-        // 현재 달 가져오기
-        $month = $this->request->getGet('month');
+        // 시작 연월 가져오기
+        $startYearMonth = $this->request->getGet('startYearMonth');
+
+        // 종료 연월 가져오기
+        $endYearMonth = $this->request->getGet('endYearMonth');
 
         $memberId = $this->session->get('member_id');
         $role = $this->session->get('role_name');
 
         // 범위 조회를 위한 날짜 생성
-        $startDate = date('Y-m-01 00:00:00', strtotime($month));
-        $endDate = date('Y-m-t 23:59:59', strtotime($month));
+        $startDate = date('Y-m-01 00:00:00', strtotime($startYearMonth));
+        $endDate = date('Y-m-t 23:59:59', strtotime($endYearMonth));
 
         if ($role === 'ADMIN') { // 관리자 일정 조회
             $data = $this->scheduleModel
@@ -83,7 +86,6 @@ class ScheduleController extends BaseController
                     schedule.end_dt,
                     schedule.place,
                     schedule.type,
-                    schedule.member_id AS schedule_member_id,
                     participant.member_id AS participant_member_id,
                     member.nickname
                 ')
@@ -102,11 +104,10 @@ class ScheduleController extends BaseController
                     schedule.end_dt,
                     schedule.place,
                     schedule.type,
-                    schedule.member_id AS schedule_member_id,
                     participant.member_id AS participant_member_id,
                     member.nickname
                 ')
-                ->where('member_id', $memberId)
+                ->where('schedule.member_id', $memberId)
                 ->where('start_dt >=', $startDate)
                 ->where('end_dt <=', $endDate)
                 ->join('participant', 'participant.schedule_id = schedule.schedule_id')
@@ -129,7 +130,6 @@ class ScheduleController extends BaseController
                     'endDt'      => $row['end_dt'],
                     'place'      => $row['place'],
                     'type'       => $row['type'],
-                    'memberId'   => $row['schedule_member_id'],
                     'participantList' => []
                 ];
             }
