@@ -2,7 +2,7 @@
     <h4>일정 등록 하기</h4>
     <label>종류</label>
     <br>
-    <select>
+    <select id="type-input">
         <option value="GENERAL">일반</option>
         <option value="EDUCATION">교육</option>
         <option value="SEMINAR">세미나</option>
@@ -13,13 +13,13 @@
 
     <label for="title-input">제목</label>
     <br>
-    <input id="title-input" name="title"/>
+    <input id="title-input" name="title" minlength="1" maxlength="30"/>
 
     <br>
 
     <label for="place-input">장소</label>
     <br>
-    <input id="place-input" name="place"/>
+    <input id="place-input" name="place" minlength="1" maxlength="20"/>
 
     <br>
 
@@ -37,23 +37,15 @@
 
     <div style="display: flex; align-items: center">
         <label style="margin-right: 10px;">참가자</label>
-        <img alt="addButton" onclick="addParticipantBtn()" id="add-participant-btn" src="/public/images/addBtn.png"/>
+        <img alt="addButton" onclick="openParticipantModal()" id="add-participant-btn" src="/public/images/addBtn.png"/>
         <aside id="search-member-modal">
-            <div class="member-content">Jerry</div>
-            <div class="member-content">Patrick</div>
-            <div class="member-content">Sarah</div>
-            <div class="member-content">Jason</div>
-            <div class="member-content">Jason</div>
-            <div class="member-content">Jason</div>
         </aside>
     </div>
     <div id="participant-view" style="background-color: #e1e1e1; margin-top: 8px">
-        <div class="participant-card card-custom" onclick="removeParticipantBtn(event)">Jerry</div>
-
     </div>
     <br>
 
-    <div class="btn" style="margin: 0 auto;">등록</div>
+    <div class="btn" style="margin: 0 auto;" onclick="addSchedule()">등록</div>
 </form>
 
 <!-- 데이터 처리 스크립트 -->
@@ -65,6 +57,23 @@
         #############                                         ###############
         #####################################################################
     */
+    const selectedMemberList = [];
+
+    $.ajax({
+        url: '/member', // 로그인 API 경로
+        type: 'GET', // HTTP 메서드
+        success: function (response) {
+            for (member of response) {
+                const $card = $('<div>').addClass('member-content').text(member.nickname)
+                    .attr('data-member-id', member.member_id)
+                    .on('click', addParticipantBtn);
+                $('#search-member-modal').append($card);
+            }
+        },
+        error: function () {
+            alert('참가자 정보를 가져오지 못했습니다.');
+        }
+    });
 
 
     /*
@@ -74,18 +83,83 @@
         #############                                         ###############
         #####################################################################
     */
-    function addParticipantBtn() {
-        if ($('#search-member-modal').css('display') === 'none') {
-            $('#search-member-modal').show();
+    function openParticipantModal() {
+        const $modal = $('#search-member-modal');
+
+        if ($modal.css('display') === 'none') {
+            $modal.show();
         } else {
-            $('#search-member-modal').hide();
+            $modal.hide();
         }
 
-        // TODO member 조회 API 연계
+    }
+
+    function addParticipantBtn(e) {
+        // 이벤트로 발생한 데이터와, value를 가져오고, 이를 새롭게 넣어주어야 함.
+        // 단 이미 존재하는 데이터는 삽입 금지.
+
+        const memberId = Number(e.target.getAttribute('data-member-id'));
+        const nickname = e.target.textContent;
+
+        if (selectedMemberList.includes(memberId)) {
+            alert("이미 선택된 참가자 입니다.");
+            $('#search-member-modal').hide();
+            return;
+        }
+
+        const $card = $('<div>').addClass('participant-card').addClass('card-custom').text(nickname)
+            .attr('data-member-id', memberId)
+            .on('click', removeParticipantBtn);
+
+        $('#participant-view').append($card);
+        selectedMemberList.push(memberId);
+
+        $('#search-member-modal').hide();
+
     }
 
     function removeParticipantBtn(e) {
+        const memberId = e.target.getAttribute('data-member-id');
+
+        const index = selectedMemberList.indexOf(memberId);
+        if (index !== -1) {
+            selectedMemberList.splice(index, 1);
+        }
+
         e.target.remove();
+    }
+
+    function addSchedule() {
+        const type = $('#type-input').val();
+        const title = $('#title-input').val();
+        const place = $('#place-input').val();
+        const startDt = $('#startDt-input').val();
+        const endDt = $('#endDt-input').val();
+        const participantList = selectedMemberList.map(id => ({ memberId: id }));
+
+        const requestBody = {
+            type: type,
+            title: title,
+            place: place,
+            startDt: startDt,
+            endDt: endDt,
+            participantList
+        };
+
+        // 스케줄 등록
+        $.ajax({
+            url: '/schedule', // 로그인 API 경로
+            type: 'POST', // HTTP 메서드
+            data: JSON.stringify(requestBody),
+            contentType: 'application/json',
+            success: function () {
+                alert('스케줄을 등록하였습니다.');
+                window.location.href = '/';
+            },
+            error: function () {
+                alert('스케줄 등록에 실패하였습니다.');
+            }
+        });
     }
 
 </script>

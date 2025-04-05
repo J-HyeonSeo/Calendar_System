@@ -36,7 +36,12 @@ $routes->get('/statistics/view', 'PhpViewController::statisticsView');
     #############                                         ###############
     #####################################################################
  */
+
+// 일정 관리 API
+$routes->post('/schedule', 'ScheduleController::addSchedule');
+
+// 회원 API
 $routes->post('/member/join', 'MemberController::join');
 $routes->post('/member/login', 'MemberController::login');
 $routes->post('/member/logout', 'MemberController::logout');
-$routes->post('/member', 'MemberController::getMemberList');
+$routes->get('/member', 'MemberController::getMemberList');
