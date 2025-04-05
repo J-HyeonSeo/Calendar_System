@@ -59,21 +59,17 @@ CREATE TABLE `member_to_role` (
     CONSTRAINT `member_to_role_role_id_fk` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO `role` (`role_name`) VALUES
-     ('ADMIN'),
-     ('USER');
+-- role
+INSERT INTO `role` (`role_name`) VALUES ('ADMIN');
+INSERT INTO `role` (`role_name`) VALUES ('USER');
 
--- 초기 데이터 삽입
-INSERT INTO `member` (`username`, `password`, `nickname`) VALUES
-    ('admin', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Admin'),
-    ('jerry', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jerry'),
-    ('jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason');
+-- member
+INSERT INTO `member` (`username`, `password`, `nickname`) VALUES ('admin', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Admin');
+INSERT INTO `member` (`username`, `password`, `nickname`) VALUES ('jerry', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jerry');
+INSERT INTO `member` (`username`, `password`, `nickname`) VALUES ('jason', '$2y$10$tiQE/ekV32V8y83mPXnrnuzypWdYpxQLSK6LpVdst/FQHORG1XGbG', 'Jason');
 
-INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES
-      (1, 1),
-      (2, 2),
-      (3, 2);
-
-SET FOREIGN_KEY_CHECKS=1;
+-- member_to_role
+INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES (1, 1);
+INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES (2, 2);
+INSERT INTO `member_to_role` (`member_id`, `role_id`) VALUES (3, 2);
