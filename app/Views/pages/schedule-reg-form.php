@@ -25,13 +25,13 @@
 
     <label for="startDt-input">시작 시간</label>
     <br>
-    <input type="datetime-local" id="startDt-input" name="startDt"/>
+    <input type="datetime-local" value="<?= esc($datetime) ?>" id="startDt-input" name="startDt"/>
 
     <br>
 
     <label for="endDt-input">종료 시간</label>
     <br>
-    <input type="datetime-local" id="endDt-input" name="endDt"/>
+    <input type="datetime-local" value="<?= esc($datetime) ?>" id="endDt-input" name="endDt"/>
 
     <br>
 

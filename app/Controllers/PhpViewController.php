@@ -31,7 +31,12 @@ class PhpViewController extends BaseController
 
     // 일정 등록 페이지 리턴
     public function scheduleRegisterView() {
-        return view('templates/header').
+
+        $data = [
+            'datetime' => $this->request->getGet('datetime')
+        ];
+
+        return view('templates/header', $data).
             view('pages/schedule-reg-form')
             .view('templates/footer');
     }

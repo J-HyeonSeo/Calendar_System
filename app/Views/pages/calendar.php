@@ -50,7 +50,16 @@
                 openDetailScheduleModal(info);
             },
             dateClick: function(date) {
-                confirm(`${date.dateStr} 날짜에 일정을 등록하시겠습니까?`);
+                const result = confirm(`${date.dateStr} 날짜에 일정을 등록하시겠습니까?`);
+                if (!result) return;
+
+                const now = new Date();
+                const hour = String(now.getHours()).padStart(2, '0');
+                const minute = String(now.getMinutes()).padStart(2, '0');
+
+                const datetime = encodeURIComponent(`${date.dateStr}T${hour}:${minute}`);
+
+                window.location.href=`/schedule/register-view?datetime=${datetime}`;
             },
             datesSet: function(info) {
                 settingCalendarEvents();

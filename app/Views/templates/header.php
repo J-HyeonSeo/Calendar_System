@@ -27,8 +27,10 @@
         <a href="/">일정관리 시스템</a>
         <nav>
             <ol>
+                <li><a href="/">메인 페이지</a></li>
                 <li><a href="/schedule/register-view">일정 등록 하기</a></li>
                 <li><a href="/statistics/view">일정 통계 페이지</a></li>
+                <li><a href="/login">로그인</a></li>
             </ol>
         </nav>
 
