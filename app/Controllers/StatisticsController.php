@@ -158,7 +158,7 @@ class StatisticsController extends BaseController
                 M.nickname AS xData,
                 ROUND(SUM(SD.minutes) / 60, 1) AS yData
             FROM SCHEDULE_DURATION SD
-            JOIN MEMBER M ON M.member_id = SD.member_id
+            JOIN member M ON M.member_id = SD.member_id
             GROUP BY SD.member_id
             ORDER BY yData DESC;
             ";
