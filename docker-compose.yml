@@ -14,9 +14,9 @@ services:
     depends_on:
       - mysql
 
-  mysql:
+  calendar-db:
     image: mysql:8.0.34
-    container_name: mysql
+    container_name: calendar-db
     ports:
       - "3307:3306"
     networks:
