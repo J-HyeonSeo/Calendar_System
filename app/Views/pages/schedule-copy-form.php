@@ -195,7 +195,7 @@
     }
 
     function removeParticipantBtn(e) {
-        const memberId = e.target.getAttribute('data-member-id');
+        const memberId = Number(e.target.getAttribute('data-member-id'));
 
         const index = selectedMemberList.indexOf(memberId);
         if (index !== -1) {
