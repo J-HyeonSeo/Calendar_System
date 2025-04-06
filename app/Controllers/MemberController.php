@@ -106,7 +106,7 @@ class MemberController extends BaseController
     // 회원목록 불러오기 (참가자 조회)
     public function getMemberList() {
         $memberList = $this->memberModel
-            ->select('member_id, nickname')
+            ->select('member_id as memberId, nickname')
             ->findAll();
         return $this->response->setJSON($memberList);
     }

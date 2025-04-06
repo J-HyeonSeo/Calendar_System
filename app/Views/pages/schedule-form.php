@@ -86,7 +86,7 @@
         success: function (response) {
             for (member of response) {
                 const $card = $('<div>').addClass('member-content').text(member.nickname)
-                    .attr('data-member-id', member.member_id)
+                    .attr('data-member-id', member.memberId)
                     .on('click', addParticipantBtn);
                 $('#search-member-modal').append($card);
             }
