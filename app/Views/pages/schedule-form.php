@@ -3,17 +3,10 @@
     <label>종류</label>
     <br>
     <select id="type-input">
-        <?php if ($mode === 'register'): ?>
-            <option value="GENERAL">일반</option>
-            <option value="EDUCATION">교육</option>
-            <option value="SEMINAR">세미나</option>
-            <option value="STAFFPARTY">회식</option>
-        <?php else : ?>
-            <option value="GENERAL" <?= $schedule['type'] === 'GENERAL' ? 'selected' : '' ?>>일반</option>
-            <option value="EDUCATION" <?= $schedule['type'] === 'EDUCATION' ? 'selected' : '' ?>>교육</option>
-            <option value="SEMINAR" <?= $schedule['type'] === 'SEMINAR' ? 'selected' : '' ?>>세미나</option>
-            <option value="STAFFPARTY" <?= $schedule['type'] === 'STAFFPARTY' ? 'selected' : '' ?>>회식</option>
-        <?php endif; ?>
+        <option value="GENERAL" <?= isset($schedule) ? ($schedule['type'] === 'GENERAL' ? 'selected' : '') : '' ?>>일반</option>
+        <option value="EDUCATION" <?= isset($schedule) ? ($schedule['type'] === 'EDUCATION' ? 'selected' : '') : '' ?>>교육</option>
+        <option value="SEMINAR" <?= isset($schedule) ? ($schedule['type'] === 'SEMINAR' ? 'selected' : '') : '' ?>>세미나</option>
+        <option value="STAFFPARTY" <?=isset($schedule) ? ($schedule['type'] === 'STAFFPARTY' ? 'selected' : '') : '' ?>>회식</option>
     </select>
 
     <br>
