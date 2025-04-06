@@ -106,7 +106,7 @@ class PhpViewController extends BaseController
         $memberId = $this->session->get('member_id');
         $role = $this->session->get('role_name');
 
-        if ($role == 'ADMIN') {
+        if ($role === 'ADMIN') {
             $data = $this->scheduleModel
                 ->select('
                     schedule.schedule_id,

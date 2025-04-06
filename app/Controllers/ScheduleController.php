@@ -118,7 +118,7 @@ class ScheduleController extends BaseController
         }
 
         // 일반 사용자인 경우에는, 권한 체크.
-        if ($role == 'USER' && $schedule['member_id'] != $memberId) {
+        if ($role === 'USER' && $schedule['member_id'] !== $memberId) {
             return $this->response->setStatusCode(400);
         }
 
@@ -165,7 +165,7 @@ class ScheduleController extends BaseController
             return $this->response->setStatusCode(400);
         }
 
-        if ($roleName == 'USER' && $schedule['member_id'] != $memberId) {
+        if ($roleName === 'USER' && $schedule['member_id'] !== $memberId) {
             return $this->response->setStatusCode(400);
         }
 

@@ -19,7 +19,7 @@ class AdminFilter implements FilterInterface
     {
         $role = $this->session->get('role_name');
 
-        if ($role != 'ADMIN') {
+        if ($role !== 'ADMIN') {
             return response()
                 ->setStatusCode(302)
                 ->setHeader('Location', '/login');

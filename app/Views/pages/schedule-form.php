@@ -1,18 +1,18 @@
 <form id="schedule-form">
-    <h4>일정 <?= $mode == 'register' ? '등록' : '수정' ?> 하기</h4>
+    <h4>일정 <?= $mode === 'register' ? '등록' : '수정' ?> 하기</h4>
     <label>종류</label>
     <br>
     <select id="type-input">
-        <?php if ($mode == 'register'): ?>
+        <?php if ($mode === 'register'): ?>
             <option value="GENERAL">일반</option>
             <option value="EDUCATION">교육</option>
             <option value="SEMINAR">세미나</option>
             <option value="STAFFPARTY">회식</option>
         <?php else : ?>
-            <option value="GENERAL" <?= $schedule['type'] == 'GENERAL' ? 'selected' : '' ?>>일반</option>
-            <option value="EDUCATION" <?= $schedule['type'] == 'EDUCATION' ? 'selected' : '' ?>>교육</option>
-            <option value="SEMINAR" <?= $schedule['type'] == 'SEMINAR' ? 'selected' : '' ?>>세미나</option>
-            <option value="STAFFPARTY" <?= $schedule['type'] == 'STAFFPARTY' ? 'selected' : '' ?>>회식</option>
+            <option value="GENERAL" <?= $schedule['type'] === 'GENERAL' ? 'selected' : '' ?>>일반</option>
+            <option value="EDUCATION" <?= $schedule['type'] === 'EDUCATION' ? 'selected' : '' ?>>교육</option>
+            <option value="SEMINAR" <?= $schedule['type'] === 'SEMINAR' ? 'selected' : '' ?>>세미나</option>
+            <option value="STAFFPARTY" <?= $schedule['type'] === 'STAFFPARTY' ? 'selected' : '' ?>>회식</option>
         <?php endif; ?>
     </select>
 
@@ -59,7 +59,7 @@
     </div>
     <br>
 
-    <div class="btn" style="margin: 0 auto;" onclick="addOrUpdateSchedule()"><?= $mode == 'register' ? '등록' : '수정' ?></div>
+    <div class="btn" style="margin: 0 auto;" onclick="addOrUpdateSchedule()"><?= $mode === 'register' ? '등록' : '수정' ?></div>
 </form>
 
 <!-- 데이터 처리 스크립트 -->
@@ -240,7 +240,7 @@
         }
 
         // 스케줄 등록
-        <?php if ($mode == 'register'): ?>
+        <?php if ($mode === 'register'): ?>
             $.ajax({
                 url: '/schedule', // 로그인 API 경로
                 type: 'POST', // HTTP 메서드
