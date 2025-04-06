@@ -17,8 +17,6 @@ services:
   calendar-db:
     image: calendar-db
     container_name: calendar-db
-    ports:
-      - "3307:3306"
     networks:
       - calendar-network
     environment:
