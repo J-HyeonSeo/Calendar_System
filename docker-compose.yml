@@ -15,7 +15,7 @@ services:
       - calendar-db
 
   calendar-db:
-    image: mysql:8.0.34
+    image: calendar-db
     container_name: calendar-db
     ports:
       - "3307:3306"
@@ -28,8 +28,6 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     restart: always
 
 networks:
