@@ -29,8 +29,9 @@
             <ol>
                 <li><a href="/">메인 페이지</a></li>
                 <li><a href="/schedule/register-view">일정 등록 하기</a></li>
-                <li><a href="/statistics/view">일정 통계 페이지</a></li>
-                <li><a href="/login">로그인</a></li>
+                <?php if ($session->get('role_name') == 'ADMIN'): ?>
+                    <li><a href="/statistics/view">일정 통계 페이지</a></li>
+                <?php endif; ?>
             </ol>
         </nav>
 
