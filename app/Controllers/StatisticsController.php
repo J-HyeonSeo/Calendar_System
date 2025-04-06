@@ -15,6 +15,8 @@ class StatisticsController extends BaseController
     // 일별 통계
     public function getStatisticsDay() {
 
+        if (!$this->dataValidate()) return $this->response->setStatusCode(400);
+
         $startDate = $this->request->getGet('startDate');
         $endDate = $this->request->getGet('endDate');
 
@@ -67,6 +69,9 @@ class StatisticsController extends BaseController
 
     // 월별 통계
     public function getStatisticsMonth() {
+
+        if (!$this->dataValidate()) return $this->response->setStatusCode(400);
+
         $startDate = $this->request->getGet('startDate');
         $endDate = $this->request->getGet('endDate');
 
@@ -119,6 +124,9 @@ class StatisticsController extends BaseController
 
     //
     public function getStatisticsParticipant() {
+
+        if (!$this->dataValidate()) return $this->response->setStatusCode(400);
+
         $startDate = $this->request->getGet('startDate');
         $endDate = $this->request->getGet('endDate');
 
@@ -174,6 +182,9 @@ class StatisticsController extends BaseController
     }
 
     public function getStatisticsPlace() {
+
+        if (!$this->dataValidate()) return $this->response->setStatusCode(400);
+
         $startDate = $this->request->getGet('startDate');
         $endDate = $this->request->getGet('endDate');
 
@@ -226,6 +237,9 @@ class StatisticsController extends BaseController
     }
 
     public function getStatisticsType() {
+
+        if (!$this->dataValidate()) return $this->response->setStatusCode(400);
+
         $startDate = $this->request->getGet('startDate');
         $endDate = $this->request->getGet('endDate');
 
@@ -275,6 +289,43 @@ class StatisticsController extends BaseController
         return $this->response->setJSON([
             'chartList' => $data
         ]);
+    }
+
+
+
+    /*
+    #####################################################################
+    #############                                         ###############
+    #############            데이터를 가져오는 부분           ###############
+    #############                                         ###############
+    #####################################################################
+    */
+    private function dataValidate() {
+
+        $startDate = $this->request->getGet('startDate');
+        $endDate = $this->request->getGet('endDate');
+
+        $data = [
+            'startDate' => $startDate,
+            'endDate' => $endDate
+        ];
+
+        $dateValidation = [
+            'startDate' => 'required|date',
+            'endDate' => 'required|date'
+        ];
+
+        // 날짜가 아닌 경우, 400오류
+        if (!$this->validate($dateValidation, $data)) {
+            return false;
+        }
+
+        // 시작 범위 <= 종료 범위에 해당하는 날짜여야 함. 아니면, 400에러.
+        if (strtotime($startDate) > strtotime($endDate)) {
+            return false;
+        }
+
+        return true;
     }
 
 }

@@ -99,6 +99,30 @@
         const startDate = $(`#${chartType}-statistics .start-date`).val();
         const endDate = $(`#${chartType}-statistics .end-date`).val();
 
+        // 시작 시간은 반드시 입력
+        if (startDate === undefined ||
+            startDate === null ||
+            startDate === ''
+        ) {
+            alert("시작 일자를 지정해주세요.");
+            return false;
+        }
+
+        // 종료 시간은 반드시 입력
+        if (endDate === undefined ||
+            endDate === null ||
+            endDate === ''
+        ) {
+            alert("종료 일자를 지정해주세요.");
+            return false;
+        }
+
+        // 시작 시간 < 종료 시간
+        if (new Date(startDate) > new Date(endDate)) {
+            alert("시작 시간이 종료 시간와 동일하거나 넘어설 수 없습니다.");
+            return false;
+        }
+
         $.ajax({
             url: `/statistics/${chartType}?startDate=${startDate}&endDate=${endDate}`,
             type: 'GET', // HTTP 메서드
