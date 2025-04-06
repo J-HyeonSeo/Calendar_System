@@ -69,7 +69,7 @@ class MemberController extends BaseController
 
         $member = $this->memberModel->findByUsername($username);
 
-        if(!$member) {
+        if(empty($member)) {
             return $this->response->setStatusCode(400);
         }
 
@@ -83,7 +83,7 @@ class MemberController extends BaseController
             ->first();
 
         // 역할이 없으면, 문제가 있는 부분이므로, 서버에 대한 에러 처리 (DB내용 확인 필요.)
-        if(!$role) {
+        if(empty($role)) {
             return $this->response->setStatusCode(500);
         }
 

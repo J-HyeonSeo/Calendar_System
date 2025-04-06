@@ -113,7 +113,7 @@ class ScheduleController extends BaseController
         $schedule = $this->scheduleModel->find($scheduleId);
 
         // 없으면, 400에러.
-        if (!$schedule) {
+        if (empty($schedule)) {
             return $this->response->setStatusCode(400);
         }
 
@@ -161,7 +161,7 @@ class ScheduleController extends BaseController
 
         $schedule = $this->scheduleModel->find($scheduleId);
 
-        if (!$schedule) {
+        if (empty($schedule)) {
             return $this->response->setStatusCode(400);
         }
 

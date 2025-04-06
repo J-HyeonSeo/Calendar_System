@@ -46,7 +46,7 @@ class PhpViewController extends BaseController
 
         $schedule = $this->getSchedule($scheduleId);
 
-        if (!$schedule) {
+        if (empty($schedule)) {
             return $this->response->setStatusCode(400);
         }
 
@@ -64,7 +64,7 @@ class PhpViewController extends BaseController
 
         $schedule = $this->getSchedule($scheduleId);
 
-        if (!$schedule) {
+        if (empty($schedule)) {
             return $this->response->setStatusCode(400);
         }
 
