@@ -30,15 +30,32 @@ http://localhost:7777
 ```
 
 # 사용법 메뉴얼 (공통)
+- 로그인
+![login1](doc/images/doc-login.png)
+
+- 회원가입
+![join1](doc/images/doc-join-1.png)
+![join2](doc/images/doc-join-2.png)
+![join3](doc/images/doc-join-3.png)
+
+- 로그아웃
+![logout](doc/images/doc-logout.png)
+
+- 메인(캘린더) 페이지 진입
+![main](doc/images/doc-access-main.png)
 
 - 일정 등록
+![reg1](doc/images/doc-schedule-reg-1.png)
+![reg2](doc/images/doc-schedule-reg-2.png)
+![reg3](doc/images/doc-schedule-reg-3.png)
+![reg4](doc/images/doc-schedule-reg-4.png)
 
-- 일정 수정
-
-- 일정 삭제
-
-- 일정 복사
+- 일정 상세 조회/수정/삭제/복사
+![view1](doc/images/doc-schedule-view-1.png)
+![view2](doc/images/doc-schedule-view-2.png)
 
 # 사용법 메뉴얼 (관리자)
 
 - 일정 통계 조회
+![statistics1](doc/images/doc-statistics-1.png)
+![statistics2](doc/images/doc-statistics-2.png)
