@@ -37,9 +37,34 @@
     </div>
 
     <script>
+
+        // ENTER 키 이벤트 추가.
+        $('#username, #password').on('keydown', function(e) {
+            if (e.key === 'Enter') {
+                doLogin();
+            }
+        });
+
+        // 로그인 수행
         function doLogin() {
             const username = $('#username').val();
             const password = $('#password').val();
+
+            if (username === undefined ||
+                username === null ||
+                username.trim() === ''
+            ) {
+                alert("아이디를 입력해주세요.");
+                return;
+            }
+
+            if (password === undefined ||
+                password === null ||
+                password.trim() === ''
+            ) {
+                alert("비밀번호를 입력해주세요.");
+                return;
+            }
 
             $.ajax({
                 url: '/member/login', // 로그인 API 경로
