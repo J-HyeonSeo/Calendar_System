@@ -81,8 +81,15 @@
                     alert('로그인에 성공하였습니다.');
                     window.location.href = '/';
                 },
-                error: function () {
-                    alert('잘못된 아이디 또는 비밀번호 입니다.');
+                error: function (xhr) {
+                    const status = xhr.status;
+
+                    if (status === 400) {
+                        alert('잘못된 아이디 또는 비밀번호 입니다.');
+                    } else {
+                        alert('서버가 아직 준비되지 않았습니다. (잠시만 기다려주세요.)')
+                    }
+
                 }
             });
         }

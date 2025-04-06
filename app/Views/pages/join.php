@@ -88,8 +88,16 @@
                 alert('회원가입에 성공하였습니다.');
                 window.location.href = '/login';
             },
-            error: function (xhr, status, error) {
-                alert('서버에 오류가 발생하였습니다.');
+            error: function (xhr) {
+
+                const status = xhr.status;
+
+                if (status === 400) {
+                    alert('회원가입에 실패하였습니다. 다시 시도해주세요.');
+                } else {
+                    alert('서버가 아직 준비되지 않았습니다. (잠시만 기다려주세요.)')
+                }
+
             }
         });
     }
