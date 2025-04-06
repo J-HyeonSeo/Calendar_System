@@ -1,37 +1,44 @@
 <form id="schedule-form">
-    <h4>일정 수정 하기</h4>
+    <h4>일정 <?= $mode == 'register' ? '등록' : '수정' ?> 하기</h4>
     <label>종류</label>
     <br>
     <select id="type-input">
-        <option value="GENERAL" <?= $schedule['type'] === 'GENERAL' ? 'selected' : '' ?>>일반</option>
-        <option value="EDUCATION" <?= $schedule['type'] === 'EDUCATION' ? 'selected' : '' ?>>교육</option>
-        <option value="SEMINAR" <?= $schedule['type'] === 'SEMINAR' ? 'selected' : '' ?>>세미나</option>
-        <option value="STAFFPARTY" <?= $schedule['type'] === 'STAFFPARTY' ? 'selected' : '' ?>>회식</option>
+        <?php if ($mode == 'register'): ?>
+            <option value="GENERAL">일반</option>
+            <option value="EDUCATION">교육</option>
+            <option value="SEMINAR">세미나</option>
+            <option value="STAFFPARTY">회식</option>
+        <?php else : ?>
+            <option value="GENERAL" <?= $schedule['type'] == 'GENERAL' ? 'selected' : '' ?>>일반</option>
+            <option value="EDUCATION" <?= $schedule['type'] == 'EDUCATION' ? 'selected' : '' ?>>교육</option>
+            <option value="SEMINAR" <?= $schedule['type'] == 'SEMINAR' ? 'selected' : '' ?>>세미나</option>
+            <option value="STAFFPARTY" <?= $schedule['type'] == 'STAFFPARTY' ? 'selected' : '' ?>>회식</option>
+        <?php endif; ?>
     </select>
 
     <br>
 
     <label for="title-input">제목</label>
     <br>
-    <input id="title-input" value="<?= esc($schedule['title']) ?>" name="title" minlength="1" maxlength="30"/>
+    <input id="title-input" value="<?= isset($schedule) ? esc($schedule['title']) : '' ?>" name="title" minlength="1" maxlength="30"/>
 
     <br>
 
     <label for="place-input">장소</label>
     <br>
-    <input id="place-input" value="<?= esc($schedule['place']) ?>" name="place" minlength="1" maxlength="20"/>
+    <input id="place-input" value="<?= isset($schedule) ? esc($schedule['place']) : '' ?>" name="place" minlength="1" maxlength="20"/>
 
     <br>
 
     <label for="startDt-input">시작 시간</label>
     <br>
-    <input type="datetime-local" value="<?= esc($schedule['startDt']) ?>" id="startDt-input" name="startDt"/>
+    <input type="datetime-local" value="<?= isset($schedule) ? esc($schedule['startDt']) : (isset($datetime) ? esc($datetime) : '') ?>" id="startDt-input" name="startDt"/>
 
     <br>
 
     <label for="endDt-input">종료 시간</label>
     <br>
-    <input type="datetime-local" value="<?= esc($schedule['endDt']) ?>" id="endDt-input" name="endDt"/>
+    <input type="datetime-local" value="<?= isset($schedule) ? esc($schedule['endDt']) : (isset($datetime) ? esc($datetime) : '') ?>" id="endDt-input" name="endDt"/>
 
     <br>
 
@@ -42,15 +49,17 @@
         </aside>
     </div>
     <div id="participant-view" style="background-color: #e1e1e1; margin-top: 8px">
-        <?php foreach ($schedule['participantList'] as $participant): ?>
-            <div class="participant-card card-custom"
-                 data-member-id="<?= esc($participant['memberId']) ?>"
-                 onclick="removeParticipantBtn(event)"><?= esc($participant['nickname']) ?></div>
-        <?php endforeach; ?>
+        <?php if (isset($schedule)): ?>
+            <?php foreach ($schedule['participantList'] as $participant): ?>
+                <div class="participant-card card-custom"
+                     data-member-id="<?= esc($participant['memberId']) ?>"
+                     onclick="removeParticipantBtn(event)"><?= esc($participant['nickname']) ?></div>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
     <br>
 
-    <div class="btn" style="margin: 0 auto;" onclick="updateSchedule()">수정</div>
+    <div class="btn" style="margin: 0 auto;" onclick="addOrUpdateSchedule()"><?= $mode == 'register' ? '등록' : '수정' ?></div>
 </form>
 
 <!-- 데이터 처리 스크립트 -->
@@ -63,9 +72,11 @@
         #####################################################################
     */
     const selectedMemberList = [
-        <?php foreach ($schedule['participantList'] as $participant): ?>
-            <?= esc($participant['memberId']) ?>,
-        <?php endforeach; ?>
+        <?php if (isset($schedule)): ?>
+            <?php foreach ($schedule['participantList'] as $participant): ?>
+                <?= esc($participant['memberId']) ?>,
+            <?php endforeach; ?>
+        <?php endif; ?>
     ];
 
     // 참가자 목록 조회하기.
@@ -196,8 +207,8 @@
 
     function removeParticipantBtn(e) {
         const memberId = Number(e.target.getAttribute('data-member-id'));
-        const index = selectedMemberList.indexOf(memberId);
 
+        const index = selectedMemberList.indexOf(memberId);
         if (index !== -1) {
             selectedMemberList.splice(index, 1);
         }
@@ -205,7 +216,7 @@
         e.target.remove();
     }
 
-    function updateSchedule() {
+    function addOrUpdateSchedule() {
 
         const type = $('#type-input').val();
         const title = $('#title-input').val();
@@ -228,23 +239,45 @@
             return;
         }
 
-        // 스케줄 수정
-        $.ajax({
-            url: `/schedule/<?= esc($schedule['scheduleId']) ?>`,
-            type: 'PUT', // HTTP 메서드
-            headers: {
-                "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
-            },
-            data: JSON.stringify(requestBody),
-            contentType: 'application/json',
-            success: function () {
-                alert('스케줄을 수정하였습니다.');
-                window.location.href = '/';
-            },
-            error: function () {
-                alert('스케줄 수정에 실패하였습니다.');
-            }
-        });
+        // 스케줄 등록
+        <?php if ($mode == 'register'): ?>
+            $.ajax({
+                url: '/schedule', // 로그인 API 경로
+                type: 'POST', // HTTP 메서드
+                headers: {
+                    "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+                },
+                data: JSON.stringify(requestBody),
+                contentType: 'application/json',
+                success: function () {
+                    alert('스케줄을 등록하였습니다.');
+                    window.location.href = '/';
+                },
+                error: function () {
+                    alert('스케줄 등록에 실패하였습니다.');
+                }
+            });
+        <?php else: ?>
+
+            // 스케줄 수정
+            $.ajax({
+                url: `/schedule/<?= esc($schedule['scheduleId']) ?>`,
+                type: 'PUT', // HTTP 메서드
+                headers: {
+                    "<?= csrf_header() ?>": "<?= csrf_hash() ?>"
+                },
+                data: JSON.stringify(requestBody),
+                contentType: 'application/json',
+                success: function () {
+                    alert('스케줄을 수정하였습니다.');
+                    window.location.href = '/';
+                },
+                error: function () {
+                    alert('스케줄 수정에 실패하였습니다.');
+                }
+            });
+        <?php endif; ?>
+
     }
 
 </script>

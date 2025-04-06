@@ -33,11 +33,12 @@ class PhpViewController extends BaseController
     public function scheduleRegisterView() {
 
         $data = [
+            'mode' => 'register',
             'datetime' => $this->request->getGet('datetime')
         ];
 
         return view('templates/header', $data).
-            view('pages/schedule-reg-form')
+            view('pages/schedule-form')
             .view('templates/footer');
     }
 
@@ -51,11 +52,12 @@ class PhpViewController extends BaseController
         }
 
         $data = [
+            'mode' => 'register',
             'schedule' => $this->getSchedule($scheduleId)[0]
         ];
 
         return view('templates/header', $data).
-            view('pages/schedule-copy-form')
+            view('pages/schedule-form')
             .view('templates/footer');
     }
 
@@ -69,11 +71,12 @@ class PhpViewController extends BaseController
         }
 
         $data = [
+            'mode' => 'update',
             'schedule' => $this->getSchedule($scheduleId)[0]
         ];
 
         return view('templates/header', $data).
-            view('pages/schedule-edit-form')
+            view('pages/schedule-form')
             .view('templates/footer');
     }
 
