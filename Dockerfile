@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Apache 설정하기
 RUN a2enmod rewrite
 
+# Apache Document Root를 지정하는 000-default.conf 파일 복사
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
 # 프로젝트 데이터를 Apache 폴더로 복사
 WORKDIR /var/www/html
 COPY . .
