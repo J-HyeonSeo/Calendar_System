@@ -37,7 +37,7 @@
 
     <div style="display: flex; align-items: center">
         <label style="margin-right: 10px;">참가자</label>
-        <img alt="addButton" onclick="openParticipantModal()" id="add-participant-btn" src="/public/images/addBtn.png"/>
+        <img alt="addButton" onclick="openParticipantModal()" id="add-participant-btn" src="/images/addBtn.png"/>
         <aside id="search-member-modal">
         </aside>
     </div>

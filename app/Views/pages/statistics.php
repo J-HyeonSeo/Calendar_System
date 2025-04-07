@@ -5,7 +5,7 @@
         <form class="search-form">
             <input class="start-date" type="date"/> -
             <input class="end-date" type="date"/>
-            <img class="search-btn" onclick="dataCallAndSettingChart('day')" alt="search" src="/public/images/search.png"/>
+            <img class="search-btn" onclick="dataCallAndSettingChart('day')" alt="search" src="/images/search.png"/>
         </form>
     </div>
     <div id="day-chart" class="chart-content"></div>
@@ -17,7 +17,7 @@
         <form class="search-form">
             <input class="start-date" type="date"/> -
             <input class="end-date" type="date"/>
-            <img class="search-btn" onclick="dataCallAndSettingChart('month')" alt="search" src="/public/images/search.png"/>
+            <img class="search-btn" onclick="dataCallAndSettingChart('month')" alt="search" src="/images/search.png"/>
         </form>
     </div>
     <div id="month-chart" class="chart-content"></div>
@@ -29,7 +29,7 @@
         <form class="search-form">
             <input class="start-date" type="date"/> -
             <input class="end-date" type="date"/>
-            <img class="search-btn" onclick="dataCallAndSettingChart('participant')" alt="search" src="/public/images/search.png"/>
+            <img class="search-btn" onclick="dataCallAndSettingChart('participant')" alt="search" src="/images/search.png"/>
         </form>
     </div>
     <div id="participant-chart" class="chart-content"></div>
@@ -41,7 +41,7 @@
         <form class="search-form">
             <input class="start-date" type="date"/> -
             <input class="end-date" type="date"/>
-            <img class="search-btn" onclick="dataCallAndSettingChart('place')" alt="search" src="/public/images/search.png"/>
+            <img class="search-btn" onclick="dataCallAndSettingChart('place')" alt="search" src="/images/search.png"/>
         </form>
     </div>
     <div id="place-chart" class="chart-content"></div>
@@ -53,7 +53,7 @@
         <form class="search-form">
             <input class="start-date" type="date"/> -
             <input class="end-date" type="date"/>
-            <img class="search-btn" onclick="dataCallAndSettingChart('type')" alt="search" src="/public/images/search.png"/>
+            <img class="search-btn" onclick="dataCallAndSettingChart('type')" alt="search" src="/images/search.png"/>
         </form>
     </div>
     <div id="type-chart" class="chart-content"></div>
